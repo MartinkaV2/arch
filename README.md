@@ -10,4 +10,6 @@ sudo pacman -S git
 2. Utána letudod hívni a scripteket ezzel a paranccsal:
 git clone https://github.com/MartinkaV2/arch.git
 3. Majd lehivott script mappába kell belépned:
-cd   
+cd arch/
+4. Ahhoz, hogy letudjad futtatni a scripteket, ezt a parancsot kell használnod:
+./01.system.sh (például)
