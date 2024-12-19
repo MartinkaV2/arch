@@ -1,5 +1,6 @@
 #!/bin/sh
 
+sudo pacman -S --needed git base-devel --noconfirm
 sudo pacman -S zenity flatpak gnome-software fastfetch  --noconfirm
 
 (
