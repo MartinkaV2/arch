@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo pacman -S zenity flatpak gnome-software neofetch --noconfirm
+sudo pacman -S zenity flatpak gnome-software fastfetch  --noconfirm
 
 (
 echo "0" ; 
