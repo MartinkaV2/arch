@@ -1,7 +1,25 @@
 #!/bin/sh
 
-sudo pacman -S --needed git base-devel --noconfirm
+#Flatpak, makepkg és fastfetch
+sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto !autodeps)/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto !autodeps)/' /etc/makepkg.conf
+flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 sudo pacman -S zenity flatpak gnome-software fastfetch  --noconfirm
+
+#AUR Helper
+git clone https://aur.archlinux.org/yay-bin.git
+cd yay-bin
+makepkg -si --noconfirm
+cd -
+rm -rf yay-bin
+
+#Flatseal flatpak appokhoz
+yay -S flatseal --noconfirm
+sudo cp -a overrides /home/$USER/.local/share/flatpak
+
+#CachyOS kernel
+curl https://mirror.cachyos.org/cachyos-repo.tar.xz -o cachyos-repo.tar.xz
+tar xvf cachyos-repo.tar.xz && cd cachyos-repo
+sudo ./cachyos-repo.sh
 
 (
 echo "0" ; 
