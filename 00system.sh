@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#Flatpak, makepkg és neofetch
+#Flatpak, makepkg, neofetch, szoftver center
 sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto !autodeps)/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto !autodeps)/' /etc/makepkg.conf
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 sudo pacman -S zenity flatpak gnome-software neofetch  --noconfirm
