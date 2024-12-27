@@ -1,9 +1,9 @@
 #!/bin/sh
 
-#Flatpak, makepkg és fastfetch
+#Flatpak, makepkg és neofetch
 sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto !autodeps)/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto !autodeps)/' /etc/makepkg.conf
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-sudo pacman -S zenity flatpak gnome-software fastfetch  --noconfirm
+sudo pacman -S zenity flatpak gnome-software neofetch  --noconfirm
 
 #AUR Helper
 git clone https://aur.archlinux.org/yay-bin.git
@@ -44,8 +44,8 @@ echo "90" ;
 echo "# Ujrainditas: 1" ; sleep 1
 ) |
 zenity --progress \
-  --title="Flatpak telepítve! Rendszer újraindul!" --width='400' \
-  --text="Újrainditás" \
+  --title="Flatpak telepitve! Rendszer újraindul!" --width='400' \
+  --text="Újrainditas" \
   --auto-close \
   --no-cancel
   sudo reboot;
