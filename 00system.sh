@@ -1,9 +1,19 @@
 #!/bin/sh
 
-#Flatpak, makepkg, neofetch, szoftver center
+#Flatpak, makepkg (amitől gyorsabb lesz), neofetch, szoftver center
 sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto !autodeps)/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto !autodeps)/' /etc/makepkg.conf
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-sudo pacman -S zenity flatpak gnome-software neofetch  --noconfirm
+sudo pacman -S zenity flatpak gnome-software neofetch ffmpeg hblock xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr xdg-desktop-portal-wlroots  --noconfirm
+
+#AMD CPU-hoz kell
+sudo pacman -S amd-ucode --noconfirm
+
+#Magyarországi repo
+sudo pacman -S reflector rsync --noconfirm
+sudo reflector -c "Hungary" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
+sudo pacman -Syy
+
+# 
 
 #AUR Helper
 git clone https://aur.archlinux.org/yay-bin.git
