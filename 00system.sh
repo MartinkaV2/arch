@@ -29,7 +29,6 @@ yay -S flatseal --noconfirm
 sudo cp -a overrides /home/$USER/.local/share/flatpak
 
 
-
 (
 echo "0" ; 
 echo "# Ujrainditas: 10" ; sleep 1
