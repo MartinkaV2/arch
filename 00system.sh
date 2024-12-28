@@ -3,17 +3,19 @@
 #Flatpak, makepkg (amitől gyorsabb lesz), neofetch, szoftver center
 sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto !autodeps)/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto !autodeps)/' /etc/makepkg.conf
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-sudo pacman -S zenity flatpak gnome-software neofetch ffmpeg hblock xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr xdg-desktop-portal-wlroots unzip   --noconfirm
+sudo pacman -S zenity flatpak gnome-software neofetch ffmpeg hblock xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr unzip gnome-disk-utility wget --noconfirm
 
 #AMD CPU-hoz kell
 sudo pacman -S amd-ucode --noconfirm
+echo "initrd   /amd-ucode.img" | sudo tee -a /boot/loader/entries/*.conf
 
 #Magyarországi repo
 sudo pacman -S reflector rsync --noconfirm
 sudo reflector -c "Hungary" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 sudo pacman -Syy
 
-# 
+#Hblock
+hblock
 
 #AUR Helper
 git clone https://aur.archlinux.org/yay-bin.git
@@ -26,10 +28,7 @@ rm -rf yay-bin
 yay -S flatseal --noconfirm
 sudo cp -a overrides /home/$USER/.local/share/flatpak
 
-#CachyOS kernel
-curl https://mirror.cachyos.org/cachyos-repo.tar.xz -o cachyos-repo.tar.xz
-tar xvf cachyos-repo.tar.xz && cd cachyos-repo
-sudo ./cachyos-repo.sh
+
 
 (
 echo "0" ; 

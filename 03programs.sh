@@ -48,7 +48,7 @@ sudo pacman -Sy lutris --noconfirm
 sudo pacman -Sy steam --noconfirm
 
 #OBS
-sudo pacman -Sy obs-studio
+flatpak install flathub com.obsproject.Studio
 
 #Heroic
 git clone https://aur.archlinux.org/heroic-games-launcher-bin.git
