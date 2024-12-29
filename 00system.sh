@@ -5,8 +5,8 @@ sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 sudo pacman -S zenity flatpak gnome-software neofetch ffmpeg hblock xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr unzip gnome-disk-utility wget --noconfirm
 
-#AMD CPU-hoz kell
-sudo pacman -S amd-ucode --noconfirm
+#CPU-hoz kell (intel, amd)
+sudo pacman -S amd-ucode intel-ucode --noconfirm
 echo "initrd   /amd-ucode.img" | sudo tee -a /boot/loader/entries/*.conf
 
 #Magyarországi repo
@@ -27,7 +27,6 @@ rm -rf yay-bin
 #Flatseal flatpak appokhoz
 yay -S flatseal --noconfirm
 sudo cp -a overrides /home/$USER/.local/share/flatpak
-
 
 (
 echo "0" ; 
