@@ -2,7 +2,7 @@
 Magam féle Arch Linux féle scriptek
 
 Spoiler!
-Scripteim Vanilla Arch Linuxhoz írtam, Xfce4 DE-hez. Ehhez megfelelően vedd figyelmedbe!
+Scripteim Vanilla Arch Linuxhoz írtam, Xfce4 DE-hez, Nvidia kártyához (GTX 1660 TI). Ehhez megfelelően vedd figyelmedbe!
 
 Ahhoz, hogy lehivd a scripteket, ezeket kell csinálnod:
 1. Telepítsd fel a git-et:
