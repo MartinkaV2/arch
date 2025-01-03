@@ -5,7 +5,7 @@ sudo pacman -S reflector rsync --noconfirm
 sudo reflector -c "Hungary" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 sudo pacman -Syy
 
-#Flatpak, makepkg (amitől gyorsabb lesz), neofetch, szoftver center
+#Flatpak and makepkg faster script
 sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto !autodeps)/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto !autodeps)/' /etc/makepkg.conf
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
