@@ -12,7 +12,7 @@ flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/fl
 #Programs
 sudo pacman -S zenity flatpak gnome-software neofetch ffmpeg hblock xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr unzip gnome-disk-utility wget zsh --noconfirm
 
-#CPU-hoz kell (intel, amd)
+#CPU's ucode (intel, amd)
 sudo pacman -S amd-ucode intel-ucode --noconfirm
 echo "initrd   /amd-ucode.img" | sudo tee -a /boot/loader/entries/*.conf
 
@@ -26,12 +26,12 @@ makepkg -si --noconfirm
 cd -
 rm -rf yay-bin
 
-#Flatseal flatpak appokhoz
+#Flatseal for flatpak apps
 yay -S flatseal --noconfirm
 sudo cp -a overrides /home/$USER/.local/share/flatpak
 
 #Nvidia kernel
-sudo pacman -S linux-zen-headers --noconfirm
+sudo pacman -S linux-zen linux-zen-headers --noconfirm
 sleep 1
 sudo pacman -S nvidia-dkms nvidia-utils nvidia-settings egl-wayland lib32-nvidia-utils  --noconfirm
 sed -i 's/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
