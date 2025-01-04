@@ -31,12 +31,13 @@ yay -S flatseal --noconfirm
 sudo cp -a overrides /home/$USER/.local/share/flatpak
 
 #Nvidia kernel
-sudo pacman -S linux-zen linux-zen-headers --noconfirm
+sudo pacman -S linux-zen linux-zen-headers --noconfirm # Make sure you have Zen kernel installed
 sleep 1
-sudo pacman -S nvidia-dkms nvidia-utils nvidia-settings egl-wayland lib32-nvidia-utils  --noconfirm
-sed -i 's/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
+sudo pacman -S nvidia-dkms nvidia-utils nvidia-settings egl-wayland lib32-nvidia-utils --noconfirm # nVidia-DKMS and some Wayland Packages
 sleep 1
-echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee /etc/modprobe.d/nvidia.conf > /dev/null
+sudo sed -i 's/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf # Add early loading of nVidia kernel mode setting
+sleep 1
+echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee /etc/modprobe.d/nvidia.conf > /dev/null # Make sure it is loaded...
 sleep 1
 sudo mkinitcpio -P
 
