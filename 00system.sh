@@ -12,8 +12,8 @@ flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/fl
 #Programs
 sudo pacman -S zenity flatpak gnome-software neofetch ffmpeg hblock xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr unzip gnome-disk-utility wget zsh --noconfirm
 
-#CPU's ucode (intel, amd)
-sudo pacman -S amd-ucode intel-ucode --noconfirm
+#CPU's ucode (amd)
+sudo pacman -S amd-ucode --noconfirm
 echo "initrd   /amd-ucode.img" | sudo tee -a /boot/loader/entries/*.conf
 
 #Hblock
