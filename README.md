@@ -13,3 +13,6 @@ git clone https://github.com/MartinkaV2/arch.git
 cd arch/
 4. Ahhoz, hogy letudjad futtatni a scripteket, ezt a parancsot kell használnod:
 ./00.system.sh (például)
+
+02programs.sh-nak RavePriest1-től vettem, neki az érdeme benne.
+kick.com/ravepriest1
