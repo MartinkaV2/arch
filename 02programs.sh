@@ -9,6 +9,7 @@ yellow=$(tput setaf 3) # ${yellow}
 
 # Entering work folder
 cd /home/$USER/.progs
+mkdir -p /home/$USER/.local/share/applications/
 sudo chown -R $USER:$GROUP /home/$USER/
 cp -a rp-programscript.desktop /home/$USER/.local/share/applications/
 echo "Exec=/home/$USER/.progs/3progs.sh" >> /home/$USER/.local/share/applications/rp-programscript.desktop
@@ -22,15 +23,18 @@ user_choice=$(zenity --list --checklist --width='1000' --height='1000' \
   --title="APP Telepítő Script base by Airman & RAVE (Magyarosította balage79)" \
   --text="Válassz az alábbi programok közül:" \
   --column="Válassz" --column="Programnév / Leírás" \
+  FALSE "Bluetooth - Ha hasznalsz BT-t tedd fel" \
   FALSE "Brave - webböngésző" \
+  FALSE "Cider - Apple Music Player Linuxra" \
   FALSE "CoreCTRL - AMD GPU beállító alkalmazás" \
   FALSE "Csak a FO Monitoron jelenjen meg a Login Screen - Tobb monitoros setupoknal" \
-  FALSE "Docker - Ha tudod mi ez akkor KELL Neked" \
   FALSE "Darktable - Adobe Lightroom Linuxos megfelelője" \
   FALSE "Discord - VoIP-, és csevegőalkalmazás" \
+  FALSE "Docker - Ha tudod mi ez akkor KELL Neked" \
   FALSE "DosBox - Régi, DOS-os játék emulátor" \
   FALSE "Double Commander - Total Commander Linuxos megfelelője" \
   FALSE "Easy Effects - Hangkártyát vezérlő program (Hangeffektek)" \
+  FALSE "Fastfetch - terminálos rendszerinfó megjelenítő" \
   FALSE "Firejail - Bongeszo Zart Kontener" \
   FALSE "FreeTube - Adatlopás-mentes YouTube-kliens" \
   FALSE "GameMode" \
@@ -47,13 +51,12 @@ user_choice=$(zenity --list --checklist --width='1000' --height='1000' \
   FALSE "Lutris - Game launchereket, és egyéb appokat futtató környezet" \
   FALSE "MangoHud/Goverlay - MSI Afterburner Linuxos megfelelője, FPS kijelzés, stb." \
   FALSE "Midnight Commander - 2 ablakos file kezelő" \
-  FALSE "Monophony - Youtube videokbol kiszedi a hangot. Jo cucc podcastokhoz" \
   FALSE "Mumble - hang alapú csevegőalkalmazás" \
-  FALSE "Fastfetch - terminálos rendszerinfó megjelenítő" \
+  FALSE "Nyomtato - Ha hasznalsz nyomtatot, tedd fel" \
   FALSE "OnlyOffice - Legujabb MS Office Linuxos megfeleloje - LIBREOFFICE-t TOROLNI FOGJA!" \
   FALSE "OBS - Nyílt forrású felvételkészítő és streamelő program" \
   FALSE "Parabolic - Videóletöltő, működik minden platformon" \
-  FALSE "P7Zip - tömörítő program" \
+  FALSE "PeaZip - tömörítő program" \
   FALSE "Pavucontrol - Apponkénti hangerőszabályzás/konfigurálás" \
   FALSE "PhotoGIMP - Adobe Photoshop-szerű képszerkesztő Linuxra" \
   FALSE "QBittorrent - torrent kliens" \
@@ -70,6 +73,19 @@ user_choice=$(zenity --list --checklist --width='1000' --height='1000' \
 if [[ $? -eq 1 ]]; then
    echo ${bold}${yellow}Cancelled by User. Exiting!${normal}
    exit 1
+fi
+
+if [[ $user_choice = *"Bluetooth - Ha hasznalsz BT-t tedd fel"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}Bluetooth${normal}
+
+    sudo pacman -S bluez bluez-qt bluez-qt5 bluez-libs bluez-tools --noconfirm
+    sudo systemctl enable bluetooth
+
+  echo ${bold}${yellow}Bluetooth ${normal}installed.
+  echo ---------------------------------------------
+  echo
 fi
 
 if [[ $user_choice = *"GNOME Screenshot - gyorsbillentyűs képernyőkép létrehozás"* ]]; then
@@ -89,12 +105,12 @@ if [[ $user_choice = *"GNOME Clocks - ébresztő, világóra, stopper, időzít�
   echo ---------------------------------------------
   echo Installing ${bold}${yellow}GNOME Clocks${normal}
 
-    sudo pacman -S gst-plugins-base gst-plugins-good gnome-clocks --noconfirm
-    sudo cp -a gnome-clocks/data/sounds/alarm-clock-elapsed.oga /usr/share/sounds/freedesktop/stereo
-    sudo cp -a gnome-clocks/data/sounds/complete.oga /usr/share/sounds/freedesktop/stereo
-    echo "[[ -f ~/.profile ]] && . ~/.profile" >> /home/$USER/.bash_profile
-    echo "export G_RESOURCE_OVERLAYS=/org/gnome/clocks/sounds=/usr/share/sounds/freedesktop/stereo" >> /home/$USER/.profile
-    echo "Reboot is needed!"
+    sudo pacman -S itstool vala meson gst-plugins-base gst-plugins-good --noconfirm
+    cd gnome-clocks
+    meson setup ravedir
+    cd ravedir
+    sudo meson install
+    cd /home/$USER/.progs
 
   echo ${bold}${yellow}GNOME Clocks with sound changes ${normal}installed.
   echo ---------------------------------------------
@@ -106,13 +122,10 @@ if [[ $user_choice = *"Steam Launcher"* ]]; then
   echo ---------------------------------------------
   echo Installing ${bold}${yellow}Steam Launcher${normal}
 
-  if [[ $nVidia -gt 0 ]]; then
-    sudo pacman -S steam nvidia-utils lib32-nvidia-utils --noconfirm --noconfirm
-  else
-    sudo pacman -S steam vulkan-radeon lib32-vulkan-radeon --noconfirm
-  fi
-  sudo chmod +x update-proton-ge
-  ./update-proton-ge
+    sudo pacman -S steam-native-runtime --noconfirm
+    sudo chmod +x update-proton-ge
+    ./update-proton-ge
+    echo "GSK_RENDERER=gl" | sudo tee -a /etc/environment
 
   echo ${bold}${yellow}Steam + Latest ProtonGE ${normal}installed.
   echo ---------------------------------------------
@@ -159,7 +172,7 @@ if [[ $user_choice = *"Fastfetch - terminálos rendszerinfó megjelenítő"* ]];
   echo Installing ${bold}${yellow}Fastfetch${normal}
 
   sudo pacman -S fastfetch --noconfirm
-  echo "fastfetch" >> .bashrc && source .bashrc
+  echo "fastfetch" >> /home/$USER/.bashrc
 
   echo ${bold}${yellow}Fastfetch ${normal}installed.
   echo ---------------------------------------------
@@ -191,6 +204,19 @@ if [[ $user_choice = *"Mumble - hang alapú csevegőalkalmazás"* ]]; then
   echo
 fi
 
+if [[ $user_choice = *"Nyomtato - Ha hasznalsz nyomtatot, tedd fel"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}Printers${normal}
+
+  sudo pacman -S cups hplip cnifilter2 --noconfirm
+  sudo systemctl enable cups --now
+
+  echo ${bold}${yellow}Printers ${normal}installed.
+  echo ---------------------------------------------
+  echo
+fi
+
 if [[ $user_choice = *"Lutris - Game launchereket, és egyéb appokat futtató környezet"* ]]; then
   echo
   echo ---------------------------------------------
@@ -215,6 +241,8 @@ if [[ $user_choice = *"KVM QEMU - virtualizáció, virtuális gépek futtatása"
   sudo sed -i '530d' /etc/libvirt/qemu.conf
   sudo sed -i "530 i user = \"$USER"\" /etc/libvirt/qemu.conf
   sudo sed -i 's/#group = "kvm"/group = "kvm"/' /etc/libvirt/qemu.conf
+  sudo systemctl enable libvirtd.service
+  sudo systemctl start libvirtd.service
   
   echo ${bold}${yellow}KVM QEMU ${normal}installed.
   echo ---------------------------------------------
@@ -237,7 +265,7 @@ if [[ $user_choice = *"CoreCTRL - AMD GPU beállító alkalmazás"* ]]; then
         subject.isInGroup(\"$USER\")) {
             return polkit.Result.YES;
     }
-});" | sudo tee /etc/polkit-1/rules.d/90-corectrl.rules > /dev/null
+});" | sudo tee /etc/polkit-1/rules.d/90-corectrl.rules
   sudo cp -a corectrl.ini /home/$USER/.config/
   sudo sed -i '/options/s/$/ amdgpu.ignore_min_pcap=1 amdgpu.ppfeaturemask=0xffffffff /' /boot/loader/entries/*.conf
   echo ${bold}${yellow}CoreCTRL and User settings ${normal}installed.
@@ -300,7 +328,7 @@ if [[ $user_choice = *"Brave - webböngésző"* ]]; then
   echo ---------------------------------------------
   echo Installing ${bold}${yellow}Brave${normal}
 
-  sudo pacman -S brave-bin --noconfirm
+  yay -S brave-bin --noconfirm
   sudo cp -a /home/$USER/.progs/BraveSoftware /home/$USER/.config/
 
   echo ${bold}${yellow}Brave ${normal}installed.
@@ -499,6 +527,7 @@ if [[ $user_choice = *"Discord - VoIP-, és csevegőalkalmazás"* ]]; then
   echo Installing ${bold}${yellow}Discord${normal}
   
   flatpak install flathub com.discordapp.Discord --user  -y
+  sudo pacman -S noto-fonts-emoji --noconfirm
 
   # Vencord script credit to Lordify
 
@@ -535,7 +564,7 @@ if [[ $user_choice = *"Easy Effects - Hangkártyát vezérlő program (Hangeffek
   echo ---------------------------------------------
   echo Installing ${bold}${yellow}Easy Effects${normal}
 
-  sudo pacman -S easyeffects --noconfirm
+  sudo pacman -S easyeffects lsp-plugins-lv2 lsp-plugins-standalone --noconfirm
 
   echo ${bold}${yellow}Easy Effects ${normal}installed.
   echo ---------------------------------------------
@@ -581,13 +610,14 @@ fi
 if [[ $user_choice = *"Csak a FO Monitoron jelenjen meg a Login Screen - Tobb monitoros setupoknal"* ]]; then
   echo
   echo ---------------------------------------------
-  echo Installing ${bold}${yellow}Only main monitor on login${normal}
+  echo Setting ${bold}${yellow}Only main monitor on login${normal}
 
   zenity --warning --text='!!  SWITCH TO PRIMARY MONITOR ONLY  !!' --width='300' --height='100'
-  sudo cp ~/.config/monitors.xml /var/lib/gdm3/.config/monitors.xml
-  sudo chown gdm:gdm /var/lib/gdm3/.config/monitors.xml
+  sudo mkdir -p /var/lib/gdm/.config/
+  sudo cp ~/.config/monitors.xml /var/lib/gdm/.config/monitors.xml
+  sudo chown gdm:gdm /var/lib/gdm/.config/monitors.xml
 
-  echo ${bold}${yellow}Only main monitor on login ${normal}installed.
+  echo ${bold}${yellow}Only main monitor on login ${normal}set.
   echo ---------------------------------------------
   echo
 fi
