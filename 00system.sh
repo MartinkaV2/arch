@@ -1,20 +1,25 @@
 #!/bin/sh
 
-#Magyarországi repo
-sudo pacman -S reflector rsync --noconfirm
-sudo reflector -c "Hungary" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
-sudo pacman -Syy
-
-#Flatpak and makepkg faster script
+#makepkg gyorsító script
 sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto !autodeps)/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto !autodeps)/' /etc/makepkg.conf
-flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-#Programs
-sudo pacman -S zenity flatpak gnome-software neofetch ffmpeg hblock xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr unzip gnome-disk-utility wget zsh --noconfirm
+#Programok
+sudo pacman -S zenity flatpak gnome-software fastfetch ffmpeg hblock xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-wlr unzip gnome-disk-utility wget zsh --noconfirm
 
-#CPU's ucode (amd)
-sudo pacman -S amd-ucode --noconfirm
-echo "initrd   /amd-ucode.img" | sudo tee -a /boot/loader/entries/*.conf
+#CPU's ucode (amd és intel)
+  if [[ $CPU -gt 0 ]]; then
+  sudo pacman -S amd-ucode --noconfirm
+else
+    sudo pacman -S intel-ucode --noconfirm
+fi
+
+#ucode boothoz hozzáadása
+ if [[ $CPU -gt 0 ]]; then
+	  echo "initrd   /amd-ucode.img" | sudo tee -a /boot/loader/entries/*.conf
+  else
+	  echo "initrd   /intel-ucode.img" | sudo tee -a /boot/loader/entries/*.conf
+  fi
+
 
 #Hblock
 hblock
@@ -31,13 +36,13 @@ yay -S flatseal --noconfirm
 sudo cp -a overrides /home/$USER/.local/share/flatpak
 
 #Nvidia kernel
-sudo pacman -S linux-zen linux-zen-headers --noconfirm # Make sure you have Zen kernel installed
+sudo pacman -S linux-zen linux-zen-headers --noconfirm # Ellenőrzi, hogy rendesen telepítve vannak e kernel csomagjai
 sleep 1
-sudo pacman -S nvidia-dkms nvidia-utils nvidia-settings egl-wayland lib32-nvidia-utils --noconfirm # nVidia-DKMS and some Wayland Packages
+sudo pacman -S nvidia-dkms nvidia-utils nvidia-settings egl-wayland lib32-nvidia-utils --noconfirm # Nvidia-DKMS és néhány Wayland csomagok
 sleep 1
-sudo sed -i 's/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf # Add early loading of nVidia kernel mode setting
+sudo sed -i 's/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf # Nvidia kernel korai betöltése
 sleep 1
-echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee /etc/modprobe.d/nvidia.conf > /dev/null # Make sure it is loaded...
+echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee /etc/modprobe.d/nvidia.conf > /dev/null # Ellenőrzi, hogy bevan e töltve
 sleep 1
 sudo mkinitcpio -P
 
@@ -64,7 +69,7 @@ echo "90" ;
 echo "# Ujrainditas: 1" ; sleep 1
 ) |
 zenity --progress \
-  --title="Flatpak telepitve! Rendszer újraindul!" --width='400' \
+  --title="Csomagok telepítve! Rendszer hamarosan újraindul!" --width='400' \
   --text="Újrainditas" \
   --auto-close \
   --no-cancel
