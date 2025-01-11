@@ -107,7 +107,7 @@ if [[ $user_choice = *"Steam Launcher"* ]]; then
   echo Installing ${bold}${yellow}Steam Launcher${normal}
 
   if [[ $nVidia -gt 0 ]]; then
-    sudo pacman -S steam nvidia-utils lib32-nvidia-utils --noconfirm
+    sudo pacman -S steam nvidia-utils lib32-nvidia-utils --noconfirm --noconfirm
   else
     sudo pacman -S steam vulkan-radeon lib32-vulkan-radeon --noconfirm
   fi
