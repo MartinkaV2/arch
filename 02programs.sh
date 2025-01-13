@@ -43,6 +43,7 @@ user_choice=$(zenity --list --checklist --width='1000' --height='1000' \
   FALSE "GTKStressTesting - CPU Monitorozas es Stress Test Program" \
   FALSE "Heroic Launcher - Epic Games Launcher Linux verziója" \
   FALSE "Input-Remapper 2.0 - egér/bill. gomb konfiguráló, macro író progi" \
+  FALSE "Jellyfin - Jellyfin Media Player" \
   FALSE "Kdenlive - Linuxos videószerkesztő program" \
   FALSE "KeepassXC - Jelszókezelő, az adatbázist titkosítva tárolja a PC-n" \
   FALSE "KVM QEMU - virtualizáció, virtuális gépek futtatása" \
@@ -56,7 +57,7 @@ user_choice=$(zenity --list --checklist --width='1000' --height='1000' \
   FALSE "OnlyOffice - Legujabb MS Office Linuxos megfeleloje - LIBREOFFICE-t TOROLNI FOGJA!" \
   FALSE "OBS - Nyílt forrású felvételkészítő és streamelő program" \
   FALSE "Parabolic - Videóletöltő, működik minden platformon" \
-  FALSE "PeaZip - tömörítő program" \
+  FALSE "P7Zip - tömörítő program" \
   FALSE "Pavucontrol - Apponkénti hangerőszabályzás/konfigurálás" \
   FALSE "PhotoGIMP - Adobe Photoshop-szerű képszerkesztő Linuxra" \
   FALSE "QBittorrent - torrent kliens" \
@@ -69,6 +70,7 @@ user_choice=$(zenity --list --checklist --width='1000' --height='1000' \
   FALSE "Vivaldi - webböngésző" \
   FALSE "VLC - médialejátszó" \
   FALSE "Windows 11 Telepítő - Csak Profiknak!" \
+  FALSE "XPadNeo - XBox Controller Support" \
   FALSE "Zenpower3 - AMD CPU Feszultseg, Aramerosseg es Fogyasztas Monitorozas" )
 if [[ $? -eq 1 ]]; then
    echo ${bold}${yellow}Cancelled by User. Exiting!${normal}
@@ -367,7 +369,7 @@ if [[ $user_choice = *"OnlyOffice - Legujabb MS Office Linuxos megfeleloje - LIB
   echo ---------------------------------------------
   echo Installing ${bold}${yellow}OnlyOffice${normal}
 
-  sudo pacman -S onlyoffice-bin --noconfirm
+  yay -S onlyoffice-bin --noconfirm
 
   echo ${bold}${yellow}OnlyOffice ${normal}installed.
   echo ---------------------------------------------
@@ -588,7 +590,7 @@ if [[ $user_choice = *"Vibrant - Szín szaturáció beállító program"* ]]; th
   echo ---------------------------------------------
   echo Installing ${bold}${yellow}Vibrant${normal}
 
-  flatpak install flathub io.github.libvibrant.vibrantLinux --user -y
+  yay -S vibrantlinux --noconfirm
 
   echo ${bold}${yellow}Vibrant ${normal}installed.
   echo ---------------------------------------------
@@ -692,6 +694,30 @@ if [[ $user_choice = *"Monophony - Youtube videokbol kiszedi a hangot. Jo cucc p
   yay -S monophony --noconfirm
 
   echo ${bold}${yellow}Monophony ${normal}installed.
+  echo ---------------------------------------------
+  echo
+fi
+
+if [[ $user_choice = *"Jellyfin - Jellyfin Media Player"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}Jellyfin${normal}
+
+  yay -S jellyfin-media-player --noconfirm
+
+  echo ${bold}${yellow}Jellyfin Media Player ${normal}installed.
+  echo ---------------------------------------------
+  echo
+fi
+
+if [[ $user_choice = *"XpadNeo - XBox Controller Support"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}Jellyfin${normal}
+
+  yay -S xpadneo --noconfirm
+
+  echo ${bold}${yellow}XPadNeo ${normal}installed.
   echo ---------------------------------------------
   echo
 fi
