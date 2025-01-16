@@ -83,7 +83,7 @@ sudo pacman -S lightdm lightdm-gtk-greeter --noconfirm
 sudo systemctl enable lightdm
 
 # Installing packages
-    sudo pacman -S flatpak fuse2 networkmanager-qt hblock gnome-software gnome-disk-utility networkmanager base-devel bash-completion kcalc ffmpeg baobab git gparted xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-xlr ttf-ubuntu-font-family spectacle rebuild-detector gwenview qt5-wayland meson rsync zenity mesa-utils gvfs gvfs-mtp gvfs-smb android-tools wmctrl python-setuptools qt5-graphicaleffects qt5-quickcontrols2 ufw gufw unzip wget glib2 glib2-devel --noconfirm
+    sudo pacman -S flatpak fuse2 networkmanager-qt hblock gnome-software gnome-disk-utility networkmanager base-devel bash-completion kcalc ffmpeg baobab git gparted xdg-desktop-portal xdg-desktop-portal-gtk ttf-ubuntu-font-family xdg-desktop-portal-xlr spectacle rebuild-detector gwenview qt5-wayland meson rsync zenity mesa-utils gvfs gvfs-mtp gvfs-smb android-tools wmctrl python-setuptools qt5-graphicaleffects qt5-quickcontrols2 ufw gufw unzip wget glib2 glib2-devel --noconfirm
     sudo systemctl enable NetworkManager.service
     flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     hblock
