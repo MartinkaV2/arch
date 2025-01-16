@@ -76,14 +76,27 @@ fi
     sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto !autodeps)/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto !autodeps)/' /etc/makepkg.conf
 
 # XFCE
-sudo pacman -S xfce4 xfce4-goodies lightdm --noconfirm
+    sudo pacman -S xfce4 xfce4-goodies lightdm --noconfirm
 
 # lightdm
-sudo pacman -S lightdm lightdm-gtk-greeter --noconfirm
-sudo systemctl enable lightdm
+    sudo pacman -S lightdm lightdm-gtk-greeter --noconfirm
+    sudo systemctl enable lightdm
+
+# Flatpak
+    sudo pacman -S flatpak --noconfirm
+    flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# fuse2
+    sudo pacman -S fuse2 --noconfirm
+
+# networkmanager
+    sudo pacman -S networkmanager networkmanager-qt
+
+# alkalmazás alkalmazás
+    sudo pacman -S gnome-software --noconfirm
 
 # Installing packages
-    sudo pacman -S flatpak fuse2 networkmanager-qt hblock gnome-software gnome-disk-utility networkmanager base-devel bash-completion kcalc ffmpeg baobab git gparted xdg-desktop-portal xdg-desktop-portal-gtk ttf-ubuntu-font-family xdg-desktop-portal-xlr spectacle rebuild-detector gwenview qt5-wayland meson rsync zenity mesa-utils gvfs gvfs-mtp gvfs-smb android-tools wmctrl python-setuptools qt5-graphicaleffects qt5-quickcontrols2 ufw gufw unzip wget glib2 glib2-devel --noconfirm
+    sudo pacman -S hblock gnome-software gnome-disk-utility networkmanager base-devel bash-completion kcalc ffmpeg baobab git gparted xdg-desktop-portal xdg-desktop-portal-gtk ttf-ubuntu-font-family xdg-desktop-portal-xlr spectacle rebuild-detector gwenview qt5-wayland meson rsync zenity mesa-utils gvfs gvfs-mtp gvfs-smb android-tools wmctrl python-setuptools qt5-graphicaleffects qt5-quickcontrols2 ufw gufw unzip wget glib2 glib2-devel --noconfirm
     sudo systemctl enable NetworkManager.service
     flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     hblock
