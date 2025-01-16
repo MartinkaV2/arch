@@ -82,8 +82,8 @@ fi
     sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
     flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     hblock
+
 # Downloading RavePkg
-  
     mkdir cosmetics
     sudo chown -R $USER:$GROUP /home/$USER/cosmetics/
     cd cosmetics
