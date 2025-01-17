@@ -23,7 +23,10 @@ user_choice=$(zenity --list --checklist --width='1000' --height='1000' \
   --title="APP Telepítő Script base by Airman & RAVE (Magyarosította balage79)" \
   --text="Válassz az alábbi programok közül:" \
   --column="Válassz" --column="Programnév / Leírás" \
+  FALSE "Audacious - Music Player" \
+  FALSE "Bitwarden - Jelszókezelő kliens" \
   FALSE "Bluetooth - Ha hasznalsz BT-t tedd fel" \
+  FALSE "Bottles - Wine prefix kezelő" \
   FALSE "Brave - webböngésző" \
   FALSE "Cider - Apple Music Player Linuxra" \
   FALSE "CoreCTRL - AMD GPU beállító alkalmazás" \
@@ -44,20 +47,24 @@ user_choice=$(zenity --list --checklist --width='1000' --height='1000' \
   FALSE "Heroic Launcher - Epic Games Launcher Linux verziója" \
   FALSE "Input-Remapper 2.0 - egér/bill. gomb konfiguráló, macro író progi" \
   FALSE "Jellyfin - Jellyfin Media Player" \
+  FALSE "KDEConnect - Gep es telefon link" \
   FALSE "Kdenlive - Linuxos videószerkesztő program" \
   FALSE "KeepassXC - Jelszókezelő, az adatbázist titkosítva tárolja a PC-n" \
   FALSE "KVM QEMU - virtualizáció, virtuális gépek futtatása" \
+  FALSE "Krusader - Total Commander like 2 paneles filekezelő" \
   FALSE "Legutobbi Baloldali Menupont Torlese a File Kezelobol (Nautilus)" \
+  FALSE "LibreOffice - Office Suite" \
   FALSE "Librewolf - Firefox ESR alapú webböngésző" \
   FALSE "Lutris - Game launchereket, és egyéb appokat futtató környezet" \
   FALSE "MangoHud/Goverlay - MSI Afterburner Linuxos megfelelője, FPS kijelzés, stb." \
-  FALSE "Midnight Commander - 2 ablakos file kezelő" \
+  FALSE "Midnight Commander - 2 ablakos filekezelő" \
   FALSE "Mumble - hang alapú csevegőalkalmazás" \
   FALSE "Nyomtato - Ha hasznalsz nyomtatot, tedd fel" \
   FALSE "OnlyOffice - Legujabb MS Office Linuxos megfeleloje - LIBREOFFICE-t TOROLNI FOGJA!" \
   FALSE "OBS - Nyílt forrású felvételkészítő és streamelő program" \
   FALSE "Parabolic - Videóletöltő, működik minden platformon" \
   FALSE "P7Zip - tömörítő program" \
+  FALSE "Pamac - Grafikus csomagkezelő" \
   FALSE "Pavucontrol - Apponkénti hangerőszabályzás/konfigurálás" \
   FALSE "PhotoGIMP - Adobe Photoshop-szerű képszerkesztő Linuxra" \
   FALSE "QBittorrent - torrent kliens" \
@@ -75,6 +82,17 @@ user_choice=$(zenity --list --checklist --width='1000' --height='1000' \
 if [[ $? -eq 1 ]]; then
    echo ${bold}${yellow}Cancelled by User. Exiting!${normal}
    exit 1
+fi
+if [[ $user_choice = *"Audacious - Music Player"* ]]; then
+  echo
+  echo ---------------------------------------------  
+  echo Installing ${bold}${yellow}Audacious${normal}
+
+    sudo pacman -S audacious --noconfirm
+
+  echo ${bold}${yellow}Audacious ${normal}installed.
+  echo ---------------------------------------------
+  echo
 fi
 
 if [[ $user_choice = *"Bluetooth - Ha hasznalsz BT-t tedd fel"* ]]; then
@@ -245,6 +263,7 @@ if [[ $user_choice = *"KVM QEMU - virtualizáció, virtuális gépek futtatása"
   sudo sed -i 's/#group = "kvm"/group = "kvm"/' /etc/libvirt/qemu.conf
   sudo systemctl enable libvirtd.service
   sudo systemctl start libvirtd.service
+  sudo virsh net-autostart default
   
   echo ${bold}${yellow}KVM QEMU ${normal}installed.
   echo ---------------------------------------------
@@ -674,7 +693,7 @@ if [[ $user_choice = *"Double Commander - Total Commander Linuxos megfelelője"*
   echo
 fi
 
-if [[ $user_choice = *"Midnight Commander - 2 ablakos file kezelő"* ]]; then
+if [[ $user_choice = *"Midnight Commander - 2 ablakos filekezelő"* ]]; then
   echo
   echo ---------------------------------------------
   echo Installing ${bold}${yellow}Midnight Commander${normal}
@@ -722,6 +741,78 @@ if [[ $user_choice = *"XpadNeo - XBox Controller Support"* ]]; then
   echo
 fi
 
+if [[ $user_choice = *"Krusader - Total Commander like 2 paneles filekezelő"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}Krusader${normal}
+
+  sudo pacman -S krusader --noconfirm
+
+  echo ${bold}${yellow}Krusader ${normal}installed.
+  echo ---------------------------------------------
+  echo
+fi
+
+if [[ $user_choice = *"Bitwarden - Jelszókezelő kliens"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}Bitwarden${normal}
+
+  sudo pacman -S bitwarden --noconfirm
+
+  echo ${bold}${yellow}Bitwarden ${normal}installed.
+  echo ---------------------------------------------
+  echo 
+fi
+
+if [[ $user_choice = *"LibreOffice - Office Suite"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}LibreOffice${normal}
+
+  sudo pacman -S libreoffice-fresh libreoffice-fresh-hu --noconfirm
+
+  echo ${bold}${yellow}LibreOffice ${normal}installed.
+  echo ---------------------------------------------
+  echo 
+fi
+
+if [[ $user_choice = *"Bottles - Wine prefix kezelő"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}Bottles${normal}
+
+  flatpak install com.usebottles.bottles --user -y
+
+  echo ${bold}${yellow}Bottles ${normal}installed.
+  echo ---------------------------------------------
+  echo
+fi
+
+if [[ $user_choice = *"Pamac - Grafikus csomagkezelő"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}Pamac${normal}  
+
+  yay -S pamac-aur --noconfirm
+
+  echo ${bold}${yellow}Pamac ${normal}installed.
+  echo ---------------------------------------------
+  echo
+fi
+
+if [[ $user_choice = *"KDEConnect - Gep es telefon link"* ]]; then
+  echo
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}KDEConnect${normal}
+
+  sudo pacman -S kdeconnect --noconfirm
+
+  echo ${bold}${yellow}KDEConnect ${normal}installed.
+  echo ---------------------------------------------
+  echo
+fi
+
 if [[ $user_choice = *"Windows 11 Telepítő - Csak Profiknak"* ]]; then
   zenity --warning --text='!! MAJOM VAGY !!' --width='300' --height='100'
 fi
@@ -749,7 +840,7 @@ echo "# Restart in 1s" ; sleep 1
 
 ) |
 zenity --progress \
- --title="All updates are Installed!" --width='300' \
+ --title="All Programs are Installed!" --width='300' \
  --text="Restart" \
  --auto-close \
  --no-cancel
