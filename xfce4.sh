@@ -102,13 +102,6 @@ fi
 # Installing packages
     sudo pacman -S hblock gnome-disk-utility base-devel bash-completion kcalc ffmpeg baobab gparted xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-xapp ttf-ubuntu-font-family xdg-desktop-portal-wlr spectacle rebuild-detector gwenview qt5-wayland meson rsync zenity mesa-utils gvfs gvfs-mtp gvfs-smb android-tools wmctrl python-setuptools qt5-graphicaleffects qt5-quickcontrols2 ufw gufw unzip wget glib2 glib2-devel nano --noconfirm
     hblock
-
-# Downloading RavePkg
-    mkdir cosmetics
-    sudo chown -R $USER:$GROUP /home/$USER/cosmetics/
-    cd cosmetics
-    wget -O cosmetics.zip https://files.rp1.hu/api/public/dl/K7znaGkC/
-    unzip cosmetics.zip
    
 # AUR telepítés
     git clone https://aur.archlinux.org/yay-bin.git
@@ -160,41 +153,6 @@ fi
     sudo sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
     sudo sed -i 's/#hu_HU.UTF-8 UTF-8/hu_HU.UTF-8 UTF-8/' /etc/locale.gen
     sudo locale-gen
-
-        # Adding Custom rave command
-  echo ---------------------------------------------
-  echo Installing ${bold}${yellow}rave command.${normal}
-  echo
-    sudo rsync -ap --info=progress2 /home/$USER/cosmetics/rave /usr/local/bin/
-    sudo chmod +x /usr/local/bin/rave
-    echo given privileges to run for rave
-    sudo rsync -ap --info=progress2 /home/$USER/cosmetics/rave-comp.sh /etc/bash_completion.d/
-    sudo chmod +x /etc/bash_completion.d/rave-comp.sh
-    echo given privileges to run for rave-comp.sh
-  echo
-  echo ${bold}${yellow}Rave command with bash completion ${normal}installed.
-  echo ---------------------------------------------
-
-    # Autostarting ProgramScript after restart
-  echo ---------------------------------------------
-  echo Installing ${bold}${yellow}ProgramScript Autostart${normal}
-  echo
-    mkdir -p /home/$USER/.config/autostart
-    sudo chown -R $USER:$GROUP /home/$USER/.config/autostart
-    echo Changed ownership to $USER /home/$USER/.config/autostart
-    sudo rsync -ap --info=progress2 3progs.sh.desktop /home/$USER/.config/autostart
-    echo Exec=/home/$USER/.progs/3progs.sh >> /home/$USER/.config/autostart/3progs.sh.desktop
-    sudo mkdir -p /home/$USER/.progs
-    echo Created .progs folder
-    sudo chown -R $USER:$GROUP /home/$USER/.progs
-    echo Changed ownership to $USER /home/$USER/.progs
-    curl -Ls https://links.rp1.hu/3progs -o /home/$USER/.progs/3progs.sh
-    sudo chmod +x /home/$USER/.progs/3progs.sh
-    echo Changed ownership to $USER /home/$USER/.progs/3progs.sh
-    sudo rsync -ap --info=progress2 content/. /home/$USER/.progs
-  echo
-  echo ${bold}${yellow}ProgramScript Autostart ${normal}installed.
-  echo ---------------------------------------------
 
 # Cleanup
     sudo rm /etc/sudoers.d/99-$USER
