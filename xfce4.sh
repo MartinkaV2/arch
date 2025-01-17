@@ -76,7 +76,7 @@ fi
     sudo sed -i 's/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug lto !autodeps)/OPTIONS=(strip docs !libtool !staticlibs emptydirs zipman purge !debug !lto !autodeps)/' /etc/makepkg.conf
 
 # XFCE
-    sudo pacman -S xfce4 xfce4-goodies lightdm --noconfirm
+    sudo pacman -S xfce4 xfce4-goodies --noconfirm
 
 # lightdm
     sudo pacman -S lightdm lightdm-gtk-greeter --noconfirm
@@ -99,8 +99,11 @@ fi
 # alkalmazás alkalmazás
     sudo pacman -S gnome-software --noconfirm
 
+# ubuntu betűtípus
+    sudo pacman -S ttf-ubuntu-font-family --noconfirm
+
 # Installing packages
-    sudo pacman -S hblock gnome-disk-utility base-devel bash-completion kcalc ffmpeg baobab gparted xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-xapp ttf-ubuntu-font-family xdg-desktop-portal-wlr spectacle rebuild-detector gwenview qt5-wayland meson rsync zenity mesa-utils gvfs gvfs-mtp gvfs-smb android-tools wmctrl python-setuptools qt5-graphicaleffects qt5-quickcontrols2 ufw gufw unzip wget glib2 glib2-devel nano --noconfirm
+    sudo pacman -S hblock gnome-disk-utility base-devel bash-completion kcalc ffmpeg baobab gparted xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk xdg-desktop-portal-xapp xdg-desktop-portal-wlr spectacle rebuild-detector gwenview qt5-wayland meson rsync zenity mesa-utils gvfs gvfs-mtp gvfs-smb wmctrl python-setuptools qt5-graphicaleffects qt5-quickcontrols2 ufw gufw unzip wget glib2 glib2-devel nano --noconfirm
     hblock
    
 # AUR telepítés
@@ -157,7 +160,6 @@ fi
 # Cleanup
     sudo rm /etc/sudoers.d/99-$USER
     sudo sed -i '140d' /etc/sudoers
-    sudo rm -rf /home/$USER/cosmetics
 
 # End of script
   echo Reboot in 3s...
