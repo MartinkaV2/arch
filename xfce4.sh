@@ -90,15 +90,15 @@ fi
     sudo pacman -S fuse2 --noconfirm
 
 # networkmanager
-    sudo pacman -S networkmanager networkmanager-qt
+    sudo pacman -S networkmanager networkmanager-qt --noconfirm
+    sudo systemctl enable NetworkManager.service
+
 
 # alkalmazás alkalmazás
     sudo pacman -S gnome-software --noconfirm
 
 # Installing packages
-    sudo pacman -S hblock gnome-software gnome-disk-utility networkmanager base-devel bash-completion kcalc ffmpeg baobab git gparted xdg-desktop-portal xdg-desktop-portal-gtk ttf-ubuntu-font-family xdg-desktop-portal-xlr spectacle rebuild-detector gwenview qt5-wayland meson rsync zenity mesa-utils gvfs gvfs-mtp gvfs-smb android-tools wmctrl python-setuptools qt5-graphicaleffects qt5-quickcontrols2 ufw gufw unzip wget glib2 glib2-devel --noconfirm
-    sudo systemctl enable NetworkManager.service
-    flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    sudo pacman -S hblock gnome-disk-utility base-devel bash-completion kcalc ffmpeg baobab git gparted xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk ttf-ubuntu-font-family xdg-desktop-portal-xlr spectacle rebuild-detector gwenview qt5-wayland meson rsync zenity mesa-utils gvfs gvfs-mtp gvfs-smb android-tools wmctrl python-setuptools qt5-graphicaleffects qt5-quickcontrols2 ufw gufw unzip wget glib2 glib2-devel --noconfirm
     hblock
 
 # Downloading RavePkg
