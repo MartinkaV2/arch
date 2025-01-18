@@ -107,14 +107,26 @@ fi
     hblock
    
 # AUR telepítés
+    mkdir cosmetics
+    sudo chown -R $USER:$GROUP /home/$USER/cosmetics/
+    cd cosmetics
+    wget -O cosmetics-kde.zip https://files.rp1.hu/api/public/dl/hplmYZoB
+    unzip cosmetics-kde.zip
+
     git clone https://aur.archlinux.org/yay-bin.git
     cd yay-bin
     makepkg -si --noconfirm
     cd -
     rm -rf yay-bin
-    yay -S otf-san-francisco --noconfirm --sudoloop --save
     
-# Flatseal - Flatpak app jogosultság beállító
+# UCode installer - Credit Lordify
+  if [[ $CPU -gt 0 ]]; then
+	  sudo pacman -S amd-ucode --noconfirm
+  else
+	  sudo pacman -S intel-ucode --noconfirm
+  fi
+  
+  # Flatseal - Flatpak app jogosultság beállító
   echo
   echo ---------------------------------------------
   echo Installing ${bold}${yellow}Flatseal${normal}
@@ -125,13 +137,6 @@ fi
   echo ${bold}${yellow}Flatseal ${normal}installed.
   echo ---------------------------------------------
   echo
-
-# UCode installer - Credit Lordify
-  if [[ $CPU -gt 0 ]]; then
-	  sudo pacman -S amd-ucode --noconfirm
-  else
-	  sudo pacman -S intel-ucode --noconfirm
-  fi
 
 # Adding ucode to boot entries - Credit Lordify
   if [[ $CPU -gt 0 ]]; then
@@ -150,6 +155,41 @@ if [[ $nVidia -gt 0 ]]; then
 	sleep 1
 	sudo mkinitcpio -P
 fi
+
+   # Adding Custom rave command
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}rave command.${normal}
+  echo
+    sudo rsync -ap --info=progress2 /home/$USER/cosmetics/rave /usr/local/bin/
+    sudo chmod +x /usr/local/bin/rave
+    echo given privileges to run for rave
+    sudo rsync -ap --info=progress2 /home/$USER/cosmetics/rave-comp.sh /etc/bash_completion.d/
+    sudo chmod +x /etc/bash_completion.d/rave-comp.sh
+    echo given privileges to run for rave-comp.sh
+  echo
+  echo ${bold}${yellow}Rave command with bash completion ${normal}installed.
+  echo ---------------------------------------------
+
+  # Autostarting ProgramScript after restart
+  echo ---------------------------------------------
+  echo Installing ${bold}${yellow}ProgramScript Autostart${normal}
+  echo
+    mkdir -p /home/$USER/.config/autostart
+    sudo chown -R $USER:$GROUP /home/$USER/.config/autostart
+    echo Changed ownership to $USER /home/$USER/.config/autostart
+    sudo rsync -ap --info=progress2 3progs.sh.desktop /home/$USER/.config/autostart
+    echo Exec=konsole -e /home/$USER/.progs/3progs.sh >> /home/$USER/.config/autostart/3progs.sh.desktop
+    sudo mkdir -p /home/$USER/.progs
+    echo Created .progs folder
+    sudo chown -R $USER:$GROUP /home/$USER/.progs
+    echo Changed ownership to $USER /home/$USER/.progs
+    curl -Ls https://links.rp1.hu/3progs -o /home/$USER/.progs/3progs.sh
+    sudo chmod +x /home/$USER/.progs/3progs.sh
+    echo Changed ownership to $USER /home/$USER/.progs/3progs.sh
+    sudo rsync -ap --info=progress2 content/. /home/$USER/.progs
+  echo
+  echo ${bold}${yellow}ProgramScript Autostart ${normal}installed.
+  echo ---------------------------------------------
 
 # Local
     sudo sed -i 's/#en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
