@@ -265,6 +265,7 @@ if [[ $user_choice = *"KVM QEMU - virtualizáció, virtuális gépek futtatása"
   sudo systemctl start libvirtd.service
   sudo virsh net-autostart default
   
+  
   echo ${bold}${yellow}KVM QEMU ${normal}installed.
   echo ---------------------------------------------
   echo
@@ -734,7 +735,7 @@ if [[ $user_choice = *"XpadNeo - XBox Controller Support"* ]]; then
   echo ---------------------------------------------
   echo Installing ${bold}${yellow}Jellyfin${normal}
 
-  yay -S xpadneo --noconfirm
+  yay -S xpadneo-dkms --noconfirm
 
   echo ${bold}${yellow}XPadNeo ${normal}installed.
   echo ---------------------------------------------
