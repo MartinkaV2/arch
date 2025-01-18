@@ -178,7 +178,7 @@ fi
     sudo chown -R $USER:$GROUP /home/$USER/.config/autostart
     echo Changed ownership to $USER /home/$USER/.config/autostart
     sudo rsync -ap --info=progress2 3progs.sh.desktop /home/$USER/.config/autostart
-    echo Exec=xfce4-terminal /home/$USER/.progs/3progs.sh >> /home/$USER/.config/autostart/3progs.sh.desktop
+    echo Exec=xfce4-terminal -e /home/$USER/.progs/3progs.sh >> /home/$USER/.config/autostart/3progs.sh.desktop
     sudo mkdir -p /home/$USER/.progs
     echo Created .progs folder
     sudo chown -R $USER:$GROUP /home/$USER/.progs
