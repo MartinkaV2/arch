@@ -119,7 +119,7 @@ fi
     cd -
     rm -rf yay-bin
     
-# UCode installer - Credit Lordify
+# UCode installer
   if [[ $CPU -gt 0 ]]; then
 	  sudo pacman -S amd-ucode --noconfirm
   else
@@ -138,14 +138,14 @@ fi
   echo ---------------------------------------------
   echo
 
-# Adding ucode to boot entries - Credit Lordify
+# Adding ucode to boot entries
   if [[ $CPU -gt 0 ]]; then
 	  echo "initrd   /amd-ucode.img" | sudo tee -a /boot/loader/entries/*.conf
   else
 	  echo "initrd   /intel-ucode.img" | sudo tee -a /boot/loader/entries/*.conf
   fi
 
-  # nVidia - Credit to Lordify
+  # Nvidia driver
 if [[ $nVidia -gt 0 ]]; then
 	sudo pacman -S nvidia-dkms nvidia-utils nvidia-settings egl-wayland lib32-nvidia-utils --noconfirm # nVidia-DKMS and some Wayland Packages
 	sleep 1
